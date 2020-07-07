@@ -6,7 +6,8 @@ I implemented a credit card reader using Tensorflow with four main steps:
 3. Extracting a card number section from card picture
 4. Identify digits using the model
 
-Unfortunately, there isn't an official standard credit card number font - some of the fonts go by the names Farrington 7B, OCR-B, SecurePay, OCR-A and MICR E13B. However, there seem to be two main font variations used in credit cards. So, I trained my model for both of them.
+Unfortunately, there isn't an official standard credit card number font - some of the fonts go by the names Farrington 7B, OCR-B, SecurePay, OCR-A and MICR E13B. However, there seem to be two main font variations used in credit cards: [this](data/creditcard_digits1.jpg) and [this](data/creditcard_digits2.jpg).
+So, I trained my model for both of them.
 
 First I create dictionaries for dataset: data/credit_card/train/ and data/credit_card/test/ (separated folders for each digits).
 Then I implement five data augmentation functions. What I'm doing here is taking two samples of each digit said above and adding small variations to each of them. This is very similar to Keras's Data Augmentation, however, I'm using OpenCV to create an augmented dataset instead. I also use Keras later to augment even further. The functions are:
@@ -33,6 +34,8 @@ Steps:
 4. Use the function four_point_transform() and order_points() to adjust the perspective of the card. It creates a top-down type of view that is useful because:
 . It standardizes the view of the card so that the credit card digits are always roughly in the same area.
 . It removes/reduces skew and warped perspectives from the image when taken from a camera. All cameras unless taken exactly top-down will introduce some skew to text/digits. This is why scanners always produce more realistic looking images.
+
+[This is how extracted image looks like](data/credit_card_extracted_digits.jpg).
 
 
 Finally, for each test credit card, I:
