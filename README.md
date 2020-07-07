@@ -17,6 +17,8 @@ Then I implement five data augmentation functions. What I'm doing here is taking
 4. pre_process() - This is a simple function that applies OTSU Binarization to the image and resizes it. I use this on the extracted digits to create a clean dataset akin to the MNIST style format.
 5. digit_augmentation() - This one simply uses the other image manipulation functions (calls them randomly).
 
+[This is how our augmented fonts look like](data/augmented_fonts.jpg).
+
 Then I create a dataset. After splitting I've got:
 for training, 1000 images for each digit. As long as we have two types of font it hits 20k images total.
 for testing, 200 images for each digit so it's 4k images total.
