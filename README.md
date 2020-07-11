@@ -6,10 +6,10 @@ I implemented a credit card reader using Tensorflow with four main steps:
 3. Extracting a card number section from card picture
 4. Identify digits using the model
 
-Unfortunately, there isn't an official standard credit card number font - some of the fonts go by the names Farrington 7B, OCR-B, SecurePay, OCR-A and MICR E13B. However, there seem to be two main font variations used in credit cards: [this](data/creditcard_digits1.jpg) and [this](data/creditcard_digits2.jpg).
+Unfortunately, there isn't an official standard credit card number font - some of the fonts go by the names **Farrington 7B**, **OCR-B**, **SecurePay**, **OCR-A** and **MICR E13B**. However, there seem to be two main font variations used in credit cards: [this](data/creditcard_digits1.jpg) and [this](data/creditcard_digits2.jpg).
 So, I trained my model for both of them.
 
-First I create dictionaries for dataset: data/credit_card/train/ and data/credit_card/test/ (separated folders for each digits).
+First I create directories for dataset: data/credit_card/train/ and data/credit_card/test/ (separated folders for each digit).
 Then I implement five data augmentation functions. What I'm doing here is taking two samples of each digit said above and adding small variations to each of them. This is very similar to Keras's Data Augmentation, however, I'm using OpenCV to create an augmented dataset instead. I also use Keras later to augment even further. The functions are:
 1. add_noise() - This function introduces some noise elements to the image
 2. pixelate() - This function resizes the image then upscales/upsamples it. This degrades the quality and is meant to simulate blur to the image from either a shakey or poor quality camera.
