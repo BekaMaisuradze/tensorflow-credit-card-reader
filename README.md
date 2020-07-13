@@ -23,7 +23,30 @@ Then I create a dataset. After splitting I've got:
 for training, 1000 images for each digit. As long as we have two types of font it hits 20k images total.
 for testing, 200 images for each digit so it's 4k images total.
 
-Then I take advantage of Keras's Data Augmentation and apply some small rotations, shifts, shearing and zooming. Finally, I train my model for 5 EPOCHS.
+Then I take advantage of Keras's Data Augmentation and apply some small rotations, shifts, shearing and zooming. Finally, I train my model for 5 EPOCHS with the result:
+      
+      Epoch 1/5,
+      1250/1250 [==============================] - 105s 84ms/step - loss: 0.4301 - acc: 0.8571 - val_loss: 0.0022 - val_acc: 1.0000,
+      
+      Epoch 00001: val_loss improved from inf to 0.00220, saving model to data/creditcard.h5,
+      Epoch 2/5,
+      1250/1250 [==============================] - 116s 93ms/step - loss: 0.1545 - acc: 0.9494 - val_loss: 0.0014 - val_acc: 0.9998,
+      
+      Epoch 00002: val_loss improved from 0.00220 to 0.00135, saving model to data/creditcard.h5,
+      Epoch 3/5,
+      1250/1250 [==============================] - 170s 136ms/step - loss: 0.1200 - acc: 0.9596 - val_loss: 0.0015 - val_acc: 0.9995,
+      
+      Epoch 00003: val_loss did not improve from 0.00135,
+      Epoch 4/5,
+      1250/1250 [==============================] - 158s 126ms/step - loss: 0.1046 - acc: 0.9672 - val_loss: 0.0093 - val_acc: 0.9990,
+      
+      Epoch 00004: val_loss did not improve from 0.00135,
+      Epoch 5/5,
+      1250/1250 [==============================] - 113s 90ms/step - loss: 0.0999 - acc: 0.9703 - val_loss: 0.0020 - val_acc: 0.9992,
+      Restoring model weights from the end of the best epoch,
+      
+      Epoch 00005: val_loss did not improve from 0.00135,
+      Epoch 00005: early stopping.
 
 We now need to extract the credit card number region. In the code below, I'm always resizing the extracted credit card image to a size of 640 x 403. The odd choice of 403 was chosen because 640:403 is the actual ratio of a credit card. I'm trying to maintain dimensions as accurately as possible so that we don't necessarily warp the image too much.
 We're resizing all extracted digits to 32 x 32, but even still keeping the initial ratio correct will only help our classifier accuracy.
@@ -49,4 +72,4 @@ Finally, for each test credit card, I:
 6. Once I have cleaned up contours, I find the bounding rectangle of the contour which gives me an enclosed rectangle around the digit. (To ensure these contours are valid I do extract only contours meeting the minimum width and height expectations).
 7. Then I take each extracted digit, use my pre_processing function (which applies OTSU Binarization and resizes it), then breakdown that image array so that it can be loaded into the classifier.
 
-P.S. I tried my best to get as many card photos as possible, I managed to collect about 25 cards and the model identified all of them with 100% correctness. 
+P.S. I managed to collect about 25 cards and the model identified all of them with 100% correctness. 
